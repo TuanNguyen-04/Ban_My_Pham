@@ -1,0 +1,255 @@
+[
+    {
+        "name": "L'Oréal Paris Revitalift Hyaluronic Acid Serum",
+        "price": "450.000₫",
+        "type": "available",
+        "brand": "L'Oréal Paris",
+        "stock": 15,
+        "images": [
+            "https://adminbeauty.hvnet.vn/Upload/Files/serum-LOreal-Paris-Hyaluronic-Acid.jpg",
+            "https://file.hstatic.net/200000617989/file/tinh-chat-l-oreal-hyaluronic-acid-cap-am-sang-da-11_0545b3423cc349f38984d1f353ed9328_grande.jpg"
+        ]
+    },
+    {
+        "name": "Innisfree Green Tea Seed Cream",
+        "price": "380.000₫",
+        "type": "available",
+        "brand": "Innisfree",
+        "stock": 12,
+        "images": [
+            "https://mint07.com/wp-content/uploads/2024/07/kem-duong-innisfree-tra-xanh-green-tea-seed-hyaluronic-cream-50ml-2.jpg",
+            "https://bizweb.dktcdn.net/thumb/1024x1024/100/376/458/products/da32-3.jpg?v=1608897195333"
+        ]
+    },
+    {
+        "name": "The Ordinary Niacinamide 10% + Zinc 1%",
+        "price": "320.000₫",
+        "type": "available",
+        "brand": "The Ordinary",
+        "stock": 18,
+        "images": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQezBwwwnxL0lonmw_X2ciKgkquGtSnstrh0w&s",
+            "https://myphamkhanhchi.com/wp-content/uploads/2021/07/the-ordinary-niacinamide-10-zinc-1-04.jpg"
+        ]
+    },
+    {
+        "name": "La Roche-Posay Anthelios Sunscreen SPF50+",
+        "price": "520.000₫",
+        "type": "available",
+        "brand": "La Roche-Posay",
+        "stock": 10,
+        "images": [
+            "https://m.media-amazon.com/images/I/61H-DTdM-5L._AC_UF1000,1000_QL80_.jpg",
+            "https://boribeauty.com/wp-content/uploads/2023/07/00013491_kem_chong_nang_la_roche_posay_kiem_soat_dau_spf50_6561_634c_large_95e9a1bea6.jpg"
+        ]
+    },
+    {
+        "name": "Maybelline Fit Me Matte + Poreless Foundation",
+        "price": "300.000₫",
+        "type": "new",
+        "brand": "Maybelline",
+        "stock": 20,
+        "images": [
+            "https://mint07.com/wp-content/uploads/2019/08/kem-nen-maybelline-fit-me-foundation-matte-poreless-tube.jpg",
+            "https://adminbeauty.hvnet.vn/Upload/Files/Avatar-SP-Web(1)(1)-Recovered-Recovered(2).jpg"
+        ]
+    },
+    {
+        "name": "Dior Addict Lip Glow Balm",
+        "price": "950.000₫",
+        "type": "available",
+        "brand": "Dior",
+        "stock": 8,
+        "images": [
+            "https://bizweb.dktcdn.net/thumb/grande/100/348/157/products/io-0000450b-cea5-46d0-a9f8-38e95d818fcc.jpg?v=1731991146593",
+            "https://cdn.vuahanghieu.com/unsafe/0x0/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/news/content/2025/03/son-duong-dior-addict-lip-glow-balm-063-pink-lilac-mau-hong-tim-jpg-1741943316-14032025160836.jpg"
+        ]
+    },
+    {
+        "name": "MAC Studio Fix Powder Plus Foundation",
+        "price": "850.000₫",
+        "type": "available",
+        "brand": "MAC",
+        "stock": 9,
+        "images": [
+            "https://mint07.com/wp-content/uploads/2019/04/phan-phu-mac-studio-fix-powder-plus-foundation.jpg",
+            "https://nanabeauty.com.vn/upload/product/831215106142.jpg"
+        ]
+    },
+    {
+        "name": "Laneige Water Sleeping Mask",
+        "price": "520.000₫",
+        "type": "available",
+        "brand": "Laneige",
+        "stock": 13,
+        "images": [
+            "https://product.hstatic.net/200000668137/product/mat-na-ngu-cap-am-laneige-water-sleeping-mask-ex-1_64fb6defd62847559dab1b596a1b9795_grande.jpg",
+            "https://www.laneige.com.vn/media/catalog/product/1/0/1000x1200_mask_b1_4.png?optimize=low&fit=bounds&height=700&width=700&canvas=700:700"
+        ]
+    },
+    {
+        "name": "Kiehl’s Ultra Facial Cream",
+        "price": "850.000₫",
+        "type": "available",
+        "brand": "Kiehl’s",
+        "stock": 7,
+        "images": [
+            "https://www.kiehls.com.vn/dw/image/v2/BFZM_PRD/on/demandware.static/-/Sites-kiehls-master-catalog/default/dw327f5244/Images/face-moisturisers/622/622-3605975028799-125ml-IMAGE5.jpg?sw=320&sh=320&sm=cut&sfrm=jpg&q=70",
+            "https://bizweb.dktcdn.net/thumb/1024x1024/100/444/220/products/kem-duong-am-chuyen-sau-kiehls-ultra-facial-cream-50ml-jpeg.jpg?v=1646315976697"
+        ]
+    },
+    {
+        "name": "Chanel Coco Mademoiselle Eau De Parfum",
+        "price": "3.200.000₫",
+        "type": "available",
+        "brand": "Chanel",
+        "stock": 5,
+        "images": [
+            "https://product.hstatic.net/1000025647/product/chanel-coco-mademoiselle-eau-de-parfum-100ml_grande_6a90483a91234646968bbfa64fc25943.jpg",
+            "https://theperfume.vn/wp-content/uploads/2019/01/nuoc-hoa-chanel-coco-mademoiselle-edt-100ml.png"
+        ]
+    },
+    {
+        "name": "Nivea MicellAIR Expert Makeup Remover",
+        "price": "180.000₫",
+        "type": "available",
+        "brand": "Nivea",
+        "stock": 16,
+        "images": [
+            "https://m.media-amazon.com/images/S/aplus-media-library-service-media/a08f71b6-e1b5-4489-bf95-64ccbda475f9.__CR0,0,600,1200_PT0_SX150_V1___.jpg",
+            "https://images-na.ssl-images-amazon.com/images/I/61xYrncdjUL.jpg"
+        ]
+    },
+    {
+        "name": "SK-II Facial Treatment Essence",
+        "price": "2.850.000₫",
+        "type": "available",
+        "brand": "SK-II",
+        "stock": 6,
+        "images": [
+            "https://hibeauty.vn/wp-content/uploads/2017/10/nuoc-than-skii-hibeauty-13042020-1.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMAD_jmMTX2a8WBd0BsgoNX83bppPUxVjk2w&s"
+        ]
+    },
+    {
+        "name": "Clinique Moisture Surge 100H Auto-Replenishing Hydrator",
+        "price": "780.000₫",
+        "type": "available",
+        "brand": "Clinique",
+        "stock": 10,
+        "images": [
+            "https://example.com/images/clinique_moisture_surge_1.jpg",
+            "https://example.com/images/clinique_moisture_surge_2.jpg"
+        ]
+    },
+    {
+        "name": "Estée Lauder Advanced Night Repair Serum",
+        "price": "2.600.000₫",
+        "type": "new",
+        "brand": "Estée Lauder",
+        "stock": 7,
+        "images": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTRqsK4UPQeSsYqTNSiqVLmARwbMPenL5LxQ&s",
+            "https://bizweb.dktcdn.net/thumb/1024x1024/100/514/727/products/e80c51a4-cdc3-4d14-8421-d52b14aa70e5.jpg?v=1758729302540g"
+        ]
+    },
+    {
+        "name": "The Body Shop Tea Tree Oil",
+        "price": "350.000₫",
+        "type": "available",
+        "brand": "The Body Shop",
+        "stock": 14,
+        "images": [
+            "https://bizweb.dktcdn.net/thumb/1024x1024/100/485/102/products/tea-tree-oil.jpg?v=1621234567890",
+            "https://images-na.ssl-images-amazon.com/images/I/71eYjtWv0CL._SL1500_.jpg"
+        ]
+    },
+    {
+        "name": "Shiseido Ultimune Power Infusing Concentrate",
+        "price": "1.900.000₫",
+        "type": "available",
+        "brand": "Shiseido",
+        "stock": 8,
+        "images": [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ2i9z_3dhkZ5Fi8MIe6N6mGxMQ8VfjfL8gg&s",
+            "https://shiseido.com.vn/media/catalog/product/cache/1/thumbnail/400x400/9df78eab33525d08d6e5fb8d27136e95/u/l/ultimune_power_infusing_concentrate_50ml.png"
+        ]
+    },
+    {
+        "name": "Garnier SkinActive Micellar Cleansing Water",
+        "price": "150.000₫",
+        "type": "available",
+        "brand": "Garnier",
+        "stock": 22,
+        "images": [
+            "https://example.com/images/garnier_micellar_1.jpg",
+            "https://example.com/images/garnier_micellar_2.jpg"
+        ]
+    },
+    {
+        "name": "Vichy Mineral 89 Hyaluronic Acid Face Serum",
+        "price": "950.000₫",
+        "type": "available",
+        "brand": "Vichy",
+        "stock": 11,
+        "images": [
+            "https://example.com/images/vichy_mineral_89_1.jpg",
+            "https://example.com/images/vichy_mineral_89_2.jpg"
+        ]
+    },
+    {
+        "name": "Eucerin Advanced Repair Cream",
+        "price": "400.000₫",
+        "type": "available",
+        "brand": "Eucerin",
+        "stock": 17,
+        "images": [
+            "https://example.com/images/eucerin_repair_1.jpg",
+            "https://example.com/images/eucerin_repair_2.jpg"
+        ]
+    },
+    {
+        "name": "Bioderma Sensibio H2O Micellar Water",
+        "price": "320.000₫",
+        "type": "available",
+        "brand": "Bioderma",
+        "stock": 13,
+        "images": [
+            "https://example.com/images/bioderma_sensibio_1.jpg",
+            "https://example.com/images/bioderma_sensibio_2.jpg"
+        ]
+    },
+    {
+        "name": "Neutrogena Hydro Boost Water Gel",
+        "price": "450.000₫",
+        "type": "new",
+        "brand": "Neutrogena",
+        "stock": 16,
+        "images": [
+            "https://example.com/images/neutrogena_hydroboost_1.jpg",
+            "https://example.com/images/neutrogena_hydroboost_2.jpg"
+        ]
+    },
+    {
+        "name": "Olay Regenerist Micro-Sculpting Cream",
+        "price": "600.000₫",
+        "type": "available",
+        "brand": "Olay",
+        "stock": 9,
+        "images": [
+            "https://example.com/images/olay_regenerist_1.jpg",
+            "https://example.com/images/olay_regenerist_2.jpg"
+        ]
+    },
+    {
+        "name": "Hada Labo Gokujyun Hyaluronic Acid Lotion",
+        "price": "280.000₫",
+        "type": "available",
+        "brand": "Hada Labo",
+        "stock": 19,
+        "images": [
+            "https://example.com/images/hadalabo_lotion_1.jpg",
+            "https://example.com/images/hadalabo_lotion_2.jpg"
+        ]
+    }
+]
