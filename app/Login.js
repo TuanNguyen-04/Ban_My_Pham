@@ -1,6 +1,16 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -18,13 +28,15 @@ export default function Login() {
       return;
     }
     try {
-      const res = await fetch(`http://103.249.117.201:12732/users/search/by-username?username=${encodeURIComponent(username)}`);
+      const res = await fetch(
+        `http://103.249.117.201:12732/users/search/by-username?username=${encodeURIComponent(username)}`
+      );
       const data = await res.json();
 
       if (data && data.passwordHash) {
         if (data.passwordHash === password) {
           login(data);
-          router.replace('/'); 
+          router.replace('/');
         } else {
           Alert.alert('Lỗi', 'Sai tài khoản hoặc mật khẩu.');
         }
@@ -42,60 +54,119 @@ export default function Login() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Đăng nhập</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Tên đăng nhập"
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Mật khẩu"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title={loading ? 'Đang đăng nhập...' : 'Đăng nhập'} onPress={handleLogin} disabled={loading} />
-      <TouchableOpacity onPress={goToRegister} style={styles.registerLink}>
-        <Text style={styles.registerText}>Chưa có tài khoản? Đăng ký</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <View style={styles.card}>
+        <Text style={styles.title}>TBeauty</Text>
+        <Text style={styles.subtitle}>Đăng nhập tài khoản của bạn</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Tên đăng nhập"
+          placeholderTextColor="#aaa"
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Mật khẩu"
+          placeholderTextColor="#aaa"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.loginText}>Đăng nhập</Text>
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={goToRegister} style={styles.registerLink}>
+          <Text style={styles.registerText}>
+            Chưa có tài khoản?{' '}
+            <Text style={styles.registerHighlight}>Đăng ký ngay</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0b1f3a', // Xanh navy đậm
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+  },
+  card: {
     backgroundColor: '#fff',
-    padding: 24,
+    width: '100%',
+    maxWidth: 380,
+    borderRadius: 20,
+    paddingVertical: 40,
+    paddingHorizontal: 28,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 8,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 32,
+    fontSize: 30,
+    fontWeight: '700',
+    color: '#0b1f3a',
+    textAlign: 'center',
+    marginBottom: 6,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#777',
+    textAlign: 'center',
+    marginBottom: 24,
   },
   input: {
-    width: '100%',
-    maxWidth: 320,
-    borderWidth: 1,
+    borderWidth: 1.2,
     borderColor: '#ccc',
-    borderRadius: 8,
+    borderRadius: 12,
     padding: 12,
     marginBottom: 16,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    color: '#000',
+    backgroundColor: '#f8f9fc',
+  },
+  loginButton: {
+    backgroundColor: '#1c2f5d',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  loginText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
   },
   registerLink: {
-    marginTop: 18,
+    marginTop: 22,
   },
   registerText: {
-    color: '#007aff',
-    fontSize: 16,
-    textDecorationLine: 'underline',
+    textAlign: 'center',
+    color: '#555',
+  },
+  registerHighlight: {
+    color: '#1c2f5d',
+    fontWeight: '600',
   },
 });

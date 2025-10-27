@@ -1,16 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
-
-// import { CartIcon } from '../../components/CartIcon';
-import { Product } from '../components/Product';
-
-//tao filter thoi gian nhap
-//them thanh search
-//bo nut cart
-//thu nho anh
-//them thong tin description vao mongodb
-
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 
 export function ProductsList() {
   const navigation = useNavigation();
@@ -28,8 +27,7 @@ export function ProductsList() {
           throw new Error('Phản hồi không phải JSON');
         }
         const data = await response.json();
-        // Lấy tất cả sản phẩm, không filter type
-        const formattedProducts = data.map((item) => ({
+        const formatted = data.map((item) => ({
           id: item._id,
           name: item.name,
           price: item.price,
@@ -40,10 +38,10 @@ export function ProductsList() {
           createdAt: item.createdAt,
           type: item.type,
         }));
-        setProducts(formattedProducts);
+        setProducts(formatted);
       } catch (error) {
         console.error('❌ Lỗi khi lấy sản phẩm:', error);
-        Alert.alert('Lỗi kết nối', 'Không thể lấy danh sách sản phẩm. Vui lòng thử lại sau.');
+        Alert.alert('Lỗi', 'Không thể tải danh sách sản phẩm.');
       }
     }
     fetchProducts();
@@ -51,21 +49,15 @@ export function ProductsList() {
 
   useEffect(() => {
     let list = products;
-    // Filter by time
     if (filterTime !== 'all') {
       const now = new Date();
       list = list.filter((item) => {
         const created = new Date(item.createdAt);
-        if (filterTime === '7d') {
-          return (now - created) / (1000 * 60 * 60 * 24) <= 7;
-        }
-        if (filterTime === '30d') {
-          return (now - created) / (1000 * 60 * 60 * 24) <= 30;
-        }
+        if (filterTime === '7d') return (now - created) / (1000 * 60 * 60 * 24) <= 7;
+        if (filterTime === '30d') return (now - created) / (1000 * 60 * 60 * 24) <= 30;
         return true;
       });
     }
-    // Filter by search
     if (search.trim()) {
       list = list.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
@@ -74,107 +66,146 @@ export function ProductsList() {
     setFilteredProducts(list);
   }, [products, search, filterTime]);
 
-
-  function renderProduct({ item: product }) {
-    const isPreorder = product.type === 'preorder';
+  function renderProduct({ item }) {
+    const isPreorder = item.type === 'preorder';
     return (
-      <Product
-        {...product}
-        onPress={() => {
-          navigation.navigate('ProductDetails', {
-            productId: product.id,
-          });
-        }}
-        smallThumb
-        priceColor={isPreorder ? '#007aff' : undefined}
-        preorderLabel={isPreorder}
-      />
+      <TouchableOpacity
+        style={styles.card}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('ProductDetails', { productId: item.id })}
+      >
+        <Image
+          source={{ uri: item.thumbnail }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <View style={styles.infoBox}>
+          <Text style={styles.productName} numberOfLines={2}>
+            {item.name}
+          </Text>
+          <Text style={[styles.price, isPreorder && { color: '#1D5D9B' }]}>
+            {item.price?.toLocaleString('vi-VN')}₫
+          </Text>
+          <Text style={styles.brand}>{item.brand}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Sản phẩm</Text>
+        <Text style={styles.title}>Danh sách sản phẩm</Text>
       </View>
-      <View style={styles.filterRow}>
+
+      <View style={styles.searchBox}>
         <TextInput
-          style={styles.searchInput}
-          placeholder="Tìm kiếm sản phẩm..."
+          placeholder="🔍 Tìm kiếm sản phẩm..."
           value={search}
           onChangeText={setSearch}
+          style={styles.searchInput}
+          placeholderTextColor="#8A9AB6"
         />
-       
       </View>
+
       <FlatList
-        style={styles.productsList}
-        contentContainerStyle={styles.productsListContainer}
-        keyExtractor={(item) => item.id.toString()}
         data={filteredProducts}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={renderProduct}
-        ListEmptyComponent={<Text style={{ textAlign: 'center', marginTop: 40 }}>Không có sản phẩm phù hợp.</Text>}
+        numColumns={2}
+        contentContainerStyle={styles.listContainer}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>Không tìm thấy sản phẩm nào.</Text>
+        }
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F7FA',
+  },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    backgroundColor: '#0A1D56',
+    paddingVertical: 18,
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 4,
     marginTop: 40,
   },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  title: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 22,
+    letterSpacing: 0.5,
   },
-  filterRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingBottom: 8,
+  searchBox: {
     backgroundColor: '#fff',
-    gap: 8,
+    marginHorizontal: 16,
+    marginTop: 16,
+    borderRadius: 30,
+    borderWidth: 1.2,
+    borderColor: '#DCE4FF',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
   },
   searchInput: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
+    color: '#0A1D56',
   },
-  filterTimeBox: {
-    flexDirection: 'row',
-    gap: 4,
+  listContainer: {
+    paddingHorizontal: 8,
+    paddingBottom: 60,
+    marginTop: 10,
   },
-  filterBtn: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 6,
-    backgroundColor: '#eee',
-    marginLeft: 4,
+  card: {
+    flex: 1,
+    backgroundColor: '#fff',
+    margin: 8,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 2,
+    padding: 12,
+    alignItems: 'center',
   },
-  filterBtnActive: {
-    backgroundColor: '#d2691e',
+  image: {
+    width: '100%',
+    height: 130,
+    borderRadius: 10,
+    marginBottom: 10,
   },
-  filterBtnText: {
-    color: '#333',
-    fontWeight: 'bold',
-    fontSize: 14,
+  infoBox: {
+    alignItems: 'center',
   },
-  productsList: {
-    backgroundColor: '#eeeeee',
+  productName: {
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: '#0A1D56',
   },
-  productsListContainer: {
-    backgroundColor: '#eeeeee',
-    paddingVertical: 8,
-    marginHorizontal: 8,
+  price: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#1E3E62',
+    marginTop: 6,
+  },
+  brand: {
+    fontSize: 13,
+    color: '#8A9AB6',
+    marginTop: 2,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 50,
+    color: '#999',
+    fontSize: 16,
   },
 });

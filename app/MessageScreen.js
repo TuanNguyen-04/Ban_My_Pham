@@ -22,7 +22,7 @@ export default function MessageScreen() {
   useEffect(() => {
     if (!conversationId) return;
 
-    socket.current = io('https://ctechlab-e.io.vn');
+    socket.current = io('http://103.249.117.201:12732');
     socket.current.emit('join', conversationId);
 
     socket.current.on('newMessage', msg => {
@@ -142,7 +142,7 @@ export default function MessageScreen() {
     }, 100);
 
     try {
-      await fetch('https://ctechlab-e.io.vn/messages', {
+      await fetch('http://103.249.117.201:12732/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newMsg)

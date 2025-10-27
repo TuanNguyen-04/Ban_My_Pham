@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { useContext } from "react";
 import {
-  Button,
   FlatList,
   StyleSheet,
   Text,
@@ -30,7 +29,7 @@ export default function Cart() {
     return (
       <View style={styles.summaryContainer}>
         <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Tổng số sản phẩm:</Text>
+          <Text style={styles.summaryLabel}>Tổng sản phẩm:</Text>
           <Text style={styles.summaryValue}>
             {items.reduce((sum, item) => sum + item.qty, 0)}
           </Text>
@@ -39,15 +38,13 @@ export default function Cart() {
           <Text style={styles.summaryLabel}>Tổng tiền:</Text>
           <Text style={styles.summaryTotal}>{total.toLocaleString()} đ</Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.checkoutButton}
-            onPress={() => router.push("/Checkout")}
-            disabled={items.length === 0}
-          >
-            <Text style={styles.buttonText}>Đặt hàng</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[styles.checkoutButton, items.length === 0 && { opacity: 0.6 }]}
+          onPress={() => router.push("/Checkout")}
+          disabled={items.length === 0}
+        >
+          <Text style={styles.buttonText}>Thanh toán</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -69,7 +66,7 @@ export default function Cart() {
         {image ? (
           <Image source={{ uri: image }} style={styles.image} />
         ) : (
-          <View style={[styles.image, { backgroundColor: "#eee" }]} />
+          <View style={[styles.image, { backgroundColor: "#E3E9F2" }]} />
         )}
 
         <View style={styles.info}>
@@ -79,22 +76,23 @@ export default function Cart() {
           <Text style={styles.price}>
             {price.toLocaleString()} đ{" "}
             {isPreorder && (
-              <Text style={{ color: "#d2691e", fontSize: 12 }}>(PreOrder)</Text>
+              <Text style={{ color: "#1D5D9B", fontSize: 12 }}>(PreOrder)</Text>
             )}
           </Text>
+
           <View style={styles.quantityContainer}>
             <TouchableOpacity
               style={styles.quantityButton}
               onPress={() => removeFromCart(item.product)}
             >
-              <Text style={styles.quantityButtonText}>-</Text>
+              <Text style={styles.quantityButtonText}>−</Text>
             </TouchableOpacity>
             <Text style={styles.quantity}>{item.qty}</Text>
             <TouchableOpacity
               style={styles.quantityButton}
               onPress={() => addToCart(item.product)}
             >
-              <Text style={styles.quantityButtonText}>+</Text>
+              <Text style={styles.quantityButtonText}>＋</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -110,7 +108,8 @@ export default function Cart() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Giỏ hàng của bạn</Text>
+      <Text style={styles.header}>🛒 Giỏ hàng của bạn</Text>
+
       {items.length === 0 ? (
         <View style={styles.containerEmpty}>
           <Text style={styles.emptyText}>Giỏ hàng của bạn đang trống.</Text>
@@ -125,7 +124,7 @@ export default function Cart() {
               index.toString()
             }
             renderItem={renderItem}
-            contentContainerStyle={{ paddingBottom: 150 }}
+            contentContainerStyle={{ paddingBottom: 130 }}
           />
           {Totals()}
         </>
@@ -137,15 +136,16 @@ export default function Cart() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fffdf8",
-    padding: 10,
+    backgroundColor: "#F5F7FA",
+    paddingHorizontal: 12,
+    paddingTop: 20,
   },
   header: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: "700",
     textAlign: "center",
-    marginVertical: 20,
-    color: "#d2691e",
+    marginBottom: 16,
+    color: "#0A1D56",
   },
   containerEmpty: {
     flex: 1,
@@ -154,21 +154,22 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 18,
-    color: "#d2691e",
+    color: "#1D5D9B",
   },
   cartItem: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#FFFFFF",
     padding: 12,
     marginVertical: 6,
-    borderRadius: 12,
-    elevation: 2,
+    borderRadius: 14,
     shadowColor: "#000",
     shadowOpacity: 0.08,
-    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
     borderLeftWidth: 4,
-    borderLeftColor: "#d2691e",
+    borderLeftColor: "#1D5D9B",
   },
   image: {
     width: 70,
@@ -181,57 +182,58 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   name: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#0A1D56",
   },
   price: {
-    fontSize: 15,
-    color: "#d2691e",
+    fontSize: 14,
+    color: "#1D5D9B",
     marginVertical: 4,
   },
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 4,
   },
   quantityButton: {
-    backgroundColor: "#fff4e6",
-    borderRadius: 6,
-    width: 28,
-    height: 28,
+    backgroundColor: "#E3E9F2",
+    borderRadius: 8,
+    width: 30,
+    height: 30,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#d2691e40",
   },
   quantityButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "#d2691e",
+    color: "#0A1D56",
   },
   quantity: {
     paddingHorizontal: 12,
-    fontSize: 16,
+    fontSize: 15,
+    color: "#0A1D56",
   },
   rightSection: {
     alignItems: "flex-end",
   },
   itemTotal: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "#d2691e",
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#1E3E62",
   },
   summaryContainer: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 15,
-    marginTop: 15,
-    elevation: 4,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 18,
+    marginTop: 10,
     shadowColor: "#000",
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    elevation: 3,
     borderTopWidth: 2,
-    borderTopColor: "#d2691e70",
+    borderTopColor: "#D0D8F0",
   },
   summaryRow: {
     flexDirection: "row",
@@ -239,31 +241,30 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   summaryLabel: {
-    fontSize: 16,
-    color: "#555",
+    fontSize: 15,
+    color: "#444",
   },
   summaryValue: {
-    fontSize: 16,
-    fontWeight: "500",
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#0A1D56",
   },
   summaryTotal: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold",
-    color: "#d2691e",
-  },
-  buttonContainer: {
-    marginTop: 15,
+    color: "#1D5D9B",
   },
   checkoutButton: {
-    backgroundColor: "#d2691e",
+    backgroundColor: "#0A1D56",
     borderRadius: 10,
     paddingVertical: 12,
+    marginTop: 14,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "bold",
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });

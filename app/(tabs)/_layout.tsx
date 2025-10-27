@@ -2,9 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -13,6 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { role } = useAuth();
+
   return (
     <Tabs
       screenOptions={{
@@ -21,9 +20,7 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
-          ios: {
-            position: 'absolute',
-          },
+          ios: { position: 'absolute' },
           default: {},
         }),
       }}
@@ -32,53 +29,51 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol name="house.fill" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="home" color={color} size={26} />,
         }}
       />
       <Tabs.Screen
         name="home"
         options={{
           title: 'Sản phẩm',
-          tabBarIcon: ({ color }) => <Ionicons name="bag" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="bag-handle" color={color} size={26} />,
         }}
       />
       <Tabs.Screen
         name="Cart"
         options={{
           title: 'Giỏ hàng',
-          tabBarIcon: ({ color }) => <Ionicons name="cart" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" color={color} size={26} />,
         }}
       />
-      {/* Tab chỉ cho admin */}
       {role === 'admin' && (
         <Tabs.Screen
           name="DeliveryAdmin"
           options={{
             title: 'Đơn hàng',
-            tabBarIcon: ({ color }) => <Ionicons name="list" color={color} size={28} />,
+            tabBarIcon: ({ color }) => <Ionicons name="clipboard-list" color={color} size={26} />,
           }}
         />
       )}
-
       <Tabs.Screen
         name="Gallery"
         options={{
           title: 'Gallery',
-          tabBarIcon: ({ color }) => <Ionicons name="images" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="images-outline" color={color} size={26} />,
         }}
       />
       <Tabs.Screen
         name="MapScreen"
         options={{
           title: 'Live Map',
-          tabBarIcon: ({ color }) => <Ionicons name="map" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="map-outline" color={color} size={26} />,
         }}
       />
       <Tabs.Screen
         name="AccountInfo"
         options={{
           title: 'Tài khoản',
-          tabBarIcon: ({ color }) => <Ionicons name="person" color={color} size={28} />,
+          tabBarIcon: ({ color }) => <Ionicons name="person-circle-outline" color={color} size={26} />,
         }}
       />
     </Tabs>

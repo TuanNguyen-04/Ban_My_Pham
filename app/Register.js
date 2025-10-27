@@ -1,6 +1,17 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -12,7 +23,7 @@ export default function Register() {
   const [passwordError, setPasswordError] = useState('');
   const router = useRouter();
 
-  // Kiểm tra trùng username realtime
+  // --- Kiểm tra trùng username realtime ---
   useEffect(() => {
     if (!username) {
       setUsernameError('');
@@ -24,12 +35,7 @@ export default function Register() {
         .then(res => res.json())
         .then(data => {
           if (cancelled) return;
-          // Nếu username ở thời điểm fetch khác username hiện tại, bỏ qua
-          if (
-            username !== '' &&
-            Array.isArray(data) &&
-            data.some(u => u.username === username)
-          ) {
+          if (username !== '' && Array.isArray(data) && data.some(u => u.username === username)) {
             setUsernameError('Tên đăng nhập đã tồn tại');
           } else {
             setUsernameError('');
@@ -45,7 +51,7 @@ export default function Register() {
     };
   }, [username]);
 
-  // Kiểm tra password mạnh realtime
+  // --- Kiểm tra độ mạnh mật khẩu realtime ---
   useEffect(() => {
     if (!password) {
       setPasswordError('');
@@ -62,6 +68,7 @@ export default function Register() {
     }
   }, [password]);
 
+  // --- Xử lý đăng ký ---
   const handleRegister = async () => {
     setLoading(true);
     if (!username || !password || !confirmPassword || !email) {
@@ -91,7 +98,7 @@ export default function Register() {
       });
       const data = await res.json();
       if (res.ok && (data.success || data._id || data.username)) {
-        // Sau khi đăng ký thành công, tạo cart cho user này
+        // Sau khi đăng ký thành công, tạo cart
         try {
           await fetch('http://103.249.117.201:12732/carts', {
             method: 'POST',
@@ -105,7 +112,6 @@ export default function Register() {
             })
           });
         } catch (e) {
-          // Không cần báo lỗi nếu tạo cart thất bại, chỉ log
           console.error('Không thể tạo cart cho user mới:', e);
         }
         Alert.alert('Thành công', 'Đăng ký thành công! Hãy đăng nhập.');
@@ -120,84 +126,155 @@ export default function Register() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Đăng ký</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Tên đăng nhập"
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-      />
-      {!!usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Mật khẩu"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      {!!passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
-      <TextInput
-        style={styles.input}
-        placeholder="Nhập lại mật khẩu"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
-  <Button title={loading ? 'Đang đăng ký...' : 'Đăng ký'} onPress={handleRegister} disabled={loading || !!usernameError || !!passwordError} />
-      <TouchableOpacity onPress={() => router.replace('/Login')} style={styles.loginLink}>
-        <Text style={styles.loginText}>Đã có tài khoản? Đăng nhập</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.card}>
+          <Text style={styles.title}>TBeauty</Text>
+          <Text style={styles.subtitle}>Tạo tài khoản mới</Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Tên đăng nhập"
+            placeholderTextColor="#aaa"
+            value={username}
+            onChangeText={setUsername}
+            autoCapitalize="none"
+          />
+          {!!usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
+
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#aaa"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Mật khẩu"
+            placeholderTextColor="#aaa"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          {!!passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
+
+          <TextInput
+            style={styles.input}
+            placeholder="Nhập lại mật khẩu"
+            placeholderTextColor="#aaa"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+          />
+
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={handleRegister}
+            disabled={loading || !!usernameError || !!passwordError}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.registerText}>Đăng ký</Text>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.replace('/Login')} style={styles.loginLink}>
+            <Text style={styles.loginText}>
+              Đã có tài khoản? <Text style={styles.loginHighlight}>Đăng nhập ngay</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0b1f3a', // nền xanh navy đậm
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
     backgroundColor: '#fff',
-    padding: 24,
+    width: '100%',
+    maxWidth: 380,
+    borderRadius: 20,
+    paddingVertical: 40,
+    paddingHorizontal: 28,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 8,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 32,
+    fontSize: 30,
+    fontWeight: '700',
+    color: '#0b1f3a',
+    textAlign: 'center',
+    marginBottom: 6,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#777',
+    textAlign: 'center',
+    marginBottom: 24,
   },
   input: {
-    width: '100%',
-    maxWidth: 320,
-    borderWidth: 1,
+    borderWidth: 1.2,
     borderColor: '#ccc',
-    borderRadius: 8,
+    borderRadius: 12,
     padding: 12,
-    marginBottom: 16,
+    marginBottom: 14,
     fontSize: 16,
-    backgroundColor: '#f9f9f9',
-  },
-  loginLink: {
-    marginTop: 18,
-  },
-  loginText: {
-    color: '#007aff',
-    fontSize: 16,
-    textDecorationLine: 'underline',
+    color: '#000',
+    backgroundColor: '#f8f9fc',
   },
   errorText: {
     color: 'red',
     marginBottom: 8,
-    alignSelf: 'flex-start',
-    marginLeft: 4,
     fontSize: 14,
+    alignSelf: 'flex-start',
+  },
+  registerButton: {
+    backgroundColor: '#1c2f5d',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 6,
+  },
+  registerText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  loginLink: {
+    marginTop: 22,
+  },
+  loginText: {
+    textAlign: 'center',
+    color: '#555',
+  },
+  loginHighlight: {
+    color: '#1c2f5d',
+    fontWeight: '600',
   },
 });

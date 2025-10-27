@@ -269,12 +269,10 @@ export default function HomeGoc() {
 
           <View style={styles.infoBlock}>
             <Text style={styles.infoTitle}>LTStore</Text>
-            <Text>Địa chỉ: Số 1, 266 Đường Thụy Phương, Từ Liêm, Hà Nội</Text>
-            <Text>Điện thoại: 0543970667</Text>
-            <Text>Email: ltstore@gmail.com</Text>
-            <TouchableOpacity style={styles.mapBtn} onPress={() => openMap()}>
-              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Xem bản đồ</Text>
-            </TouchableOpacity>
+            <Text>Địa chỉ: Số 37, Tây Tựu, Từ Liêm, Hà Nội</Text>
+            <Text>Điện thoại: 0389638227</Text>
+            <Text>Email: tuan71105@gmail.com</Text>
+            
           </View>
 
           <View style={styles.infoBlock}>
