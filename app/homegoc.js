@@ -145,50 +145,38 @@ export default function HomeGoc() {
         )}
         {/* Admin-only second row: Đơn hàng + Thống kê */}
         {role === 'admin' && (
-          <View style={{ flexDirection: 'row', marginTop: 10, alignItems: 'center' }}>
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? '#e0e0e0' : '#f2f2f2',
-                  borderRadius: 20,
-                  paddingVertical: 6,
-                  paddingHorizontal: 14,
-                  marginRight: 10,
-                },
-              ]}
-              onPress={() => navigation.navigate('DeliveryAdmin')}
-            >
-              <Text style={{ fontWeight: 'bold', color: '#1976d2' }}>Đơn hàng</Text>
-            </Pressable>
+  <View style={{ flexDirection: 'row', marginTop: 12, justifyContent: 'space-between' }}>
+    {[
+      { label: 'Đơn hàng', screen: 'DeliveryAdmin' },
+      { label: 'Thống kê', screen: 'StatsScreen' },
+      { label: 'Quản lý sản phẩm', screen: 'ProductAdmin' },
+    ].map((btn, idx) => (
+      <Pressable
+        key={idx}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? '#081540' : '#0A1D56',
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+            borderRadius: 12,
+            shadowColor: '#000',
+            shadowOpacity: 0.2,
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 4,
+            elevation: 3,
+            minWidth: 100,
+            alignItems: 'center',
+            marginRight: idx < 2 ? 10 : 0,
+          },
+        ]}
+        onPress={() => navigation.navigate(btn.screen)}
+      >
+        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 14 }}>{btn.label}</Text>
+      </Pressable>
+    ))}
+  </View>
+)}
 
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? '#e0e0e0' : '#f2f2f2',
-                  borderRadius: 20,
-                  paddingVertical: 6,
-                  paddingHorizontal: 14,
-                },
-              ]}
-              onPress={() => navigation.navigate('StatsScreen')}
-            >
-              <Text style={{ fontWeight: 'bold', color: '#1976d2' }}>Thống kê</Text>
-            </Pressable>
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? '#e0e0e0' : '#f2f2f2',
-                  borderRadius: 20,
-                  paddingVertical: 6,
-                  paddingHorizontal: 14,
-                },
-              ]}
-              onPress={() => navigation.navigate('ProductAdmin')}
-            >
-              <Text style={{ fontWeight: 'bold', color: '#1976d2' }}>Quản lý sản phẩm</Text>
-            </Pressable> 
-          </View>
-        )}
       </View>
       <ScrollView style={styles.container}>
         {/* ...existing code... */}

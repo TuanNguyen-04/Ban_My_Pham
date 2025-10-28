@@ -51,7 +51,7 @@ export default function Cart() {
 
   function renderItem({ item }) {
     let name = item?.product?.name || "Sản phẩm";
-    const image = item?.product?.image || item?.product?.img || null;
+    const image = item?.product?.images?.[0] || null; // lấy ảnh đầu tiên
     let isPreorder = false;
     let price = item?.product?.price || 0;
 
