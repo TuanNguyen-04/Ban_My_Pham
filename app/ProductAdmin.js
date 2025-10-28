@@ -171,78 +171,96 @@ export default function ProductAdmin() {
         </TouchableOpacity>
 
         {addingProduct && (
-          <View style={styles.itemBox}>
-            <ScrollView
-              nestedScrollEnabled
-              keyboardShouldPersistTaps="handled"
-              style={{ maxHeight: 500 }}
-            >
-              <TextInput
-                placeholder="Tên sản phẩm"
-                value={newProduct.name}
-                onChangeText={(t) => setNewProduct({ ...newProduct, name: t })}
-                style={styles.input}
-              />
-              <TextInput
-                placeholder="Loại (available / preorder)"
-                value={newProduct.type}
-                onChangeText={(t) => setNewProduct({ ...newProduct, type: t })}
-                style={styles.input}
-              />
-              <TextInput
-                placeholder="Giá"
-                value={String(newProduct.price)}
-                onChangeText={(t) => setNewProduct({ ...newProduct, price: Number(t) })}
-                style={styles.input}
-                keyboardType="numeric"
-              />
-              <TextInput
-                placeholder="Thương hiệu"
-                value={newProduct.brand}
-                onChangeText={(t) => setNewProduct({ ...newProduct, brand: t })}
-                style={styles.input}
-              />
-              <TextInput
-                placeholder="Tồn kho"
-                value={String(newProduct.stock)}
-                onChangeText={(t) => setNewProduct({ ...newProduct, stock: Number(t) })}
-                style={styles.input}
-                keyboardType="numeric"
-              />
+  <View style={styles.itemBox}>
+    <ScrollView
+      nestedScrollEnabled
+      keyboardShouldPersistTaps="handled"
+      style={{ maxHeight: 500 }}
+    >
+      {/* Tên sản phẩm */}
+      <Text style={styles.label}>Tên sản phẩm</Text>
+      <TextInput
+        placeholder="VD: Serum dưỡng ẩm"
+        value={newProduct.name}
+        onChangeText={(t) => setNewProduct({ ...newProduct, name: t })}
+        style={styles.input}
+      />
 
-              {[0, 1, 2, 3].map((i) => (
-                <View key={i} style={{ marginBottom: 10 }}>
-                  <TextInput
-                    placeholder={`Ảnh ${i + 1} - URL`}
-                    value={newProduct.images[i] || ''}
-                    onChangeText={(t) => {
-                      const imgs = [...newProduct.images];
-                      imgs[i] = t;
-                      setNewProduct({ ...newProduct, images: imgs });
-                    }}
-                    style={styles.input}
-                  />
-                  {newProduct.images[i] ? (
-                    <Image
-                      source={{ uri: newProduct.images[i] }}
-                      style={{ width: '100%', height: 120, borderRadius: 10, marginTop: 4 }}
-                      resizeMode="cover"
-                    />
-                  ) : null}
-                </View>
-              ))}
+      {/* Loại sản phẩm */}
+      <Text style={styles.label}>Loại sản phẩm (available / preorder)</Text>
+      <TextInput
+        placeholder="available hoặc preorder"
+        value={newProduct.type}
+        onChangeText={(t) => setNewProduct({ ...newProduct, type: t })}
+        style={styles.input}
+      />
 
-              <View style={styles.row}>
-                <TouchableOpacity onPress={handleAddProduct} style={styles.saveBtn}>
-                  <Text style={styles.saveText}>Lưu</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setAddingProduct(false)} style={styles.cancelBtn}>
-                  <Text style={{ color: '#0A1D56', fontWeight: '600' }}>Hủy</Text>
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
-          </View>
-        )}
+      {/* Giá sản phẩm */}
+      <Text style={styles.label}>Giá (VND)</Text>
+      <TextInput
+        placeholder="VD: 450000"
+        value={String(newProduct.price)}
+        onChangeText={(t) => setNewProduct({ ...newProduct, price: Number(t) })}
+        style={styles.input}
+        keyboardType="numeric"
+      />
+
+      {/* Thương hiệu */}
+      <Text style={styles.label}>Thương hiệu</Text>
+      <TextInput
+        placeholder="VD: L'Oréal"
+        value={newProduct.brand}
+        onChangeText={(t) => setNewProduct({ ...newProduct, brand: t })}
+        style={styles.input}
+      />
+
+      {/* Số lượng tồn kho */}
+      <Text style={styles.label}>Tồn kho</Text>
+      <TextInput
+        placeholder="VD: 15"
+        value={String(newProduct.stock)}
+        onChangeText={(t) => setNewProduct({ ...newProduct, stock: Number(t) })}
+        style={styles.input}
+        keyboardType="numeric"
+      />
+
+      {/* URL ảnh sản phẩm */}
+      {[0, 1, 2, 3].map((i) => (
+        <View key={i} style={{ marginBottom: 10 }}>
+          <Text style={styles.label}>Ảnh {i + 1}</Text>
+          <TextInput
+            placeholder="Nhập URL ảnh"
+            value={newProduct.images[i] || ''}
+            onChangeText={(t) => {
+              const imgs = [...newProduct.images];
+              imgs[i] = t;
+              setNewProduct({ ...newProduct, images: imgs });
+            }}
+            style={styles.input}
+          />
+          {newProduct.images[i] ? (
+            <Image
+              source={{ uri: newProduct.images[i] }}
+              style={{ width: '100%', height: 120, borderRadius: 10, marginTop: 4 }}
+              resizeMode="cover"
+            />
+          ) : null}
+        </View>
+      ))}
+
+      {/* Nút Lưu / Hủy */}
+      <View style={styles.row}>
+        <TouchableOpacity onPress={handleAddProduct} style={styles.saveBtn}>
+          <Text style={styles.saveText}>Lưu</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setAddingProduct(false)} style={styles.cancelBtn}>
+          <Text style={{ color: '#0A1D56', fontWeight: '600' }}>Hủy</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  </View>
+)}
+
 
         <FlatList
           data={products}
@@ -312,6 +330,13 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 8,
   },
+  label: {
+  fontSize: 14,
+  fontWeight: '600',
+  color: '#0A1D56',
+  marginBottom: 4,
+},
+
   deleteBtn: {
     borderWidth: 1,
     borderColor: '#e53935',
